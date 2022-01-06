@@ -1,0 +1,15 @@
+{
+  "path": "",
+  "type": "scaffold",
+  "title": "rh-template-miniprogram-taro",
+  "namespace": "",
+  "name": "rh-template-miniprogram-taro",
+  "key": "rh-template-miniprogram-taro",
+  "description": "Taro小程序模板",
+  "features": [],
+  "tags": [],
+  "img": "",
+  "private": "",
+  "bus": [],
+  "materialDeps": []
+}
