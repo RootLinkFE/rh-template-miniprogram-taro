@@ -1,0 +1,92 @@
+import { Checkbox, CheckboxGroup, Label, Text, View } from '@tarojs/components'
+import React, { Component } from 'react'
+import { isControlRequired } from '../../utils'
+import FormControl from '../control'
+import '../../styles/checkbox.less'
+
+// /**
+//  * 单选框参数
+//  */
+// export interface FormCheckboxGroupProps extends FormFieldProps<CheckboxGroupProps> {
+//   /** 选中值 */
+//   value?: (number | string)[];
+//   /** 选项列表 */
+//   options: (CheckboxProps & { label: string })[];
+//   /** 排列方式：'vertical'-垂直排列、'horizontal'-水平排列，默认：水平 */
+//   layout?: 'vertical' | 'horizontal';
+// }
+
+/**
+ * 多选框组件
+ */
+class FormCheckboxGroup extends Component {
+  static defaultProps = {
+    type: 'FormControl',
+    controlName: 'FormCheckboxGroup'
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: props.value || []
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.value !== nextProps?.value) {
+      this.setState({ value: nextProps?.value || [] })
+    }
+  }
+
+  // 是否必选
+  isRequired =
+    !this.props.hideRequiredMark && isControlRequired(this.props?.rules)
+
+  /**
+   * 更新表单值
+   * @param value
+   */
+  update(value) {
+    this.setState({ value })
+    this.props?.onChange?.(value)
+  }
+
+  render() {
+    return (
+      <FormControl
+        label={this.props.label}
+        required={this.isRequired}
+        labelStyle={this.props?.labelStyle}
+      >
+        <View className='form-checkbox-group'>
+          <CheckboxGroup
+            {...this.props.fieldProps}
+            onChange={(e) => this.update(e.detail.value)}
+          >
+            <View
+              className={`form-checkbox-group-control ${this.props?.layout ||
+                'horizontal'}`}
+            >
+              {this.props.options?.map((item, index) => {
+                const key = index + ''
+                const checked = this.state.value?.length
+                  ? this.state.value?.findIndex(
+                      (value) => item.value === value
+                    ) > -1
+                  : false
+                return (
+                  <Label for={key} key={key}>
+                    <Checkbox value={item.value} checked={checked}>
+                      <Text>{item.label}</Text>
+                    </Checkbox>
+                  </Label>
+                )
+              })}
+            </View>
+          </CheckboxGroup>
+        </View>
+      </FormControl>
+    )
+  }
+}
+export default FormCheckboxGroup

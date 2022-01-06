@@ -1,0 +1,44 @@
+.form-picker-control {
+  width: 100%;
+
+  > .picker {
+    height: 96px;
+    min-width: 100%;
+
+    .inner-picker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .label {
+        min-width: 0;
+        font-size: 26px;
+        color: #333;
+        line-height: 96px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &.empty {
+          color: #999;
+        }
+      }
+
+      .picker-dropdown {
+        display: inline-flex;
+        justify-content: center;
+        width: 30px;
+
+        .dropdown-icon {
+          box-sizing: border-box;
+          height: 16px;
+          width: 16px;
+          border-bottom: 4px solid #ddd;
+          border-right: 4px solid #ddd;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+}

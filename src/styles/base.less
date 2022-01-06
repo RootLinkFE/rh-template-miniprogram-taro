@@ -1,0 +1,104 @@
+@import './theme';
+@import './iconfont';
+
+page,
+body {
+  font-size: 32px;
+  height: 100%;
+  background-color: @white;
+  color: @text-color;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 500px) {
+  html,
+  body {
+    max-width: 1500px;
+    margin: 0 auto;
+    position: relative;
+  }
+}
+
+.taro-img,
+image {
+  width: 100%;
+}
+
+button {
+  outline: none;
+}
+
+//******常用类******/
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.position-center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+}
+
+.text-bold {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.description-page {
+  background-color: @color-page-bg;
+  min-height: 100vh;
+  .taroify-cell__title {
+    flex: none;
+    width: 150px;
+    margin-right: 20px;
+    padding: 20px 0;
+    font-size: 30px;
+  }
+  .taroify-cell__value {
+    text-align: left;
+    padding: 20px 0;
+    font-size: 30px;
+    color: #333;
+  }
+  image {
+    width: 100px !important;
+    height: 100px !important;
+    margin-right: 20px;
+  }
+}

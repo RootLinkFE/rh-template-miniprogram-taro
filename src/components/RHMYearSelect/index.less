@@ -1,0 +1,61 @@
+@import 'src/styles/theme';
+
+.year-select {
+  .header {
+    display: flex;
+    height: 80px;
+    line-height: 80px;
+    position: relative;
+    &-text {
+      width: 80%;
+      text-align: center;
+    }
+    .left-icon {
+      left: 30px;
+    }
+    .icon {
+      flex: 1;
+      position: relative;
+      top: 10px;
+    }
+  }
+  .content {
+    &-grid {
+      .taroify-grid-item__text {
+        font-size: 30px;
+      }
+    }
+    &-disabled {
+      .taroify-grid-item__text {
+        color: $disabled-color;
+      }
+    }
+    .selected {
+      .taroify-grid-item__text {
+        @extend %linear-primary;
+        color: #fff;
+        padding: 0px 15px;
+        border-radius: 8px;
+      }
+    }
+  }
+  .taroify-dropdown-menu-title__content {
+    &::after {
+      border-bottom-color: #b3b3b3;
+      border-left-color: #b3b3b3;
+      width: 8px;
+      height: 8px;
+      right: -18px;
+      top: 20px;
+    }
+  }
+  .taroify-dropdown-menu-title--active .taroify-dropdown-menu-title__content {
+    &::after {
+      border-bottom-color: $color-primary;
+      border-left-color: $color-primary;
+    }
+  }
+  .taroify-dropdown-menu__bar {
+    box-shadow: none;
+  }
+}
