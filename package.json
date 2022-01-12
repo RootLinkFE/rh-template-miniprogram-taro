@@ -20,7 +20,9 @@
     "dev:weapp": "npm run build:weapp -- --watch",
     "build:weapp": "taro build --type weapp",
     "lint": "eslint --ext .js,.ts src",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "postpublish": "npm run ci & node ./scripts/notice/index.js",
+    "ci": "mp-ci preview ./ --pkp=./private.key"
   },
   "browserslist": [
     "last 3 versions",
@@ -71,6 +73,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "stylelint": "9.3.0",
-    "typescript": "^4.1.0"
+    "typescript": "^4.1.0",
+    "mp-ci": "^1.2.1"
   }
 }
