@@ -17,77 +17,77 @@ import Schema, { Rules } from 'async-validator'
 import { Diff, usePrevious } from './utils'
 import './styles/index.less'
 
-// /**
-//  * 自定义表单 参数定义
-//  */
-// export interface CustomizeFormProps {
-//   /** 默认值 */
-//   defaultValue?: Record<string, any>;
-//   /** 表单控件 */
-//   children?: ReactNode[] | ReactNode;
-//   /** 表单值变更 */
-//   onValueChange?: (diff) => void;
-//   /** 标签配置 */
-//   labelStyle?: CSSProperties;
-// }
+/**
+ * 自定义表单 参数定义
+ */
+export interface CustomizeFormProps {
+  /** 默认值 */
+  defaultValue?: Record<string, any>
+  /** 表单控件 */
+  children?: ReactNode[] | ReactNode
+  /** 表单值变更 */
+  onValueChange?: (diff) => void
+  /** 标签配置 */
+  labelStyle?: CSSProperties
+}
 
-// /**
-//  * 自定义表单 Ref 暴露方法
-//  */
-// export interface CustomizeFormExpose {
-//   /**
-//    * 校验表单
-//    * @example
-//    * this.formRef.current?.validate().then(()=>{
-//    *   // 校验通过
-//    * }).catch((err)=>{
-//    *   // 校验不通过
-//    * });
-//    */
-//   validate: () => Promise<void>;
-//   /**
-//    * 校验单个表单项
-//    * @param name - 表单项的name
-//    * @example
-//    * this.formRef.current?.validateField('title').then(()=>{
-//    *   // 校验通过
-//    * }).catch((err)=>{
-//    *   // 校验不通过
-//    * });
-//    */
-//   validateField: (name: string) => Promise<any>;
-//   /**
-//    * 重置表单
-//    * @param form - 新表单值
-//    */
-//   reset: (form?: Record<string, any>) => void;
-//   /**
-//    * 设置表单值
-//    * @param value - 值
-//    * @example
-//    * this.formRef.current?.setFieldsValue({
-//    *   name: '张三',
-//    *   gender: 1,
-//    * });
-//    */
-//   setFieldsValue: (value: Record<string, any>) => void;
-//   /**
-//    * 获取单个表单项的值
-//    * @param name - 表单项名称
-//    * @return - 该表单项的值
-//    */
-//   getFieldValue: (name: string) => any;
-//   /**
-//    * 获取表单值
-//    * @return - 当前表单的值
-//    */
-//   getFieldsValue: () => Record<string, any>;
-// }
+/**
+ * 自定义表单 Ref 暴露方法
+ */
+export interface CustomizeFormExpose {
+  /**
+   * 校验表单
+   * @example
+   * this.formRef.current?.validate().then(()=>{
+   *   // 校验通过
+   * }).catch((err)=>{
+   *   // 校验不通过
+   * });
+   */
+  validate: () => Promise<void>
+  /**
+   * 校验单个表单项
+   * @param name - 表单项的name
+   * @example
+   * this.formRef.current?.validateField('title').then(()=>{
+   *   // 校验通过
+   * }).catch((err)=>{
+   *   // 校验不通过
+   * });
+   */
+  validateField: (name: string) => Promise<void>
+  /**
+   * 重置表单
+   * @param form - 新表单值
+   */
+  reset: (form?: Record<string, any>) => void
+  /**
+   * 设置表单值
+   * @param value - 值
+   * @example
+   * this.formRef.current?.setFieldsValue({
+   *   name: '张三',
+   *   gender: 1,
+   * });
+   */
+  setFieldsValue: (value: Record<string, any>) => void
+  /**
+   * 获取单个表单项的值
+   * @param name - 表单项名称
+   * @return - 该表单项的值
+   */
+  getFieldValue: (name: string) => any
+  /**
+   * 获取表单值
+   * @return - 当前表单的值
+   */
+  getFieldsValue: () => Record<string, any>
+}
 
 /**
  * 自定义表单组件
  */
-const RHMForm = forwardRef((props, ref) => {
+const RHMForm = forwardRef((props: CustomizeFormProps, ref) => {
   const [form, setForm] = useState(props?.defaultValue || {})
   const prevForm = usePrevious(form)
 
@@ -101,30 +101,33 @@ const RHMForm = forwardRef((props, ref) => {
    * 扩展表单控件 Props
    * @param control - 表单控件
    */
-  const cloneProps = (control) => {
+  const cloneProps = (control: any) => {
     if (isValidElement(control)) {
       // 扩展 Props
       const extendProps = {
+        value: null,
+        labelStyle: {},
         form,
         ref: createRef(),
         // 变更事件
         onChange: (val, ...args) => {
           setForm({
             ...form,
-            [control?.props?.fieldProps?.name]: val
+            [(control.props as any)?.fieldProps?.name]: val
           })
-          control?.props?.onChange?.(val, ...args)
+          ;(control.props as any)?.onChange?.(val, ...args)
         }
       }
       // 通过表单项名称，赋值
-      const name = control.props?.fieldProps?.name || control.props.name
+      const name =
+        (control.props as any)?.fieldProps?.name || (control.props as any).name
       if (name) {
         extendProps.value = form.hasOwnProperty(name) ? form[name] : null
       }
       if (props?.labelStyle) {
         extendProps.labelStyle = {
           ...props.labelStyle,
-          ...(control.props?.labelStyle || {})
+          ...((control.props as any)?.labelStyle || {})
         }
       }
       return cloneElement(control, extendProps)
@@ -147,9 +150,11 @@ const RHMForm = forwardRef((props, ref) => {
       if (isValidElement(item)) {
         // 获取控件名称
         const isFormControl =
-          item?.type?.defaultProps?.type || item?.props?.type === 'FormControl'
+          (item?.type as any)?.defaultProps?.type ||
+          (item?.props as any)?.type === 'FormControl'
         const controlName =
-          item?.type?.defaultProps?.controlName || item?.props?.controlName
+          (item?.type as any)?.defaultProps?.controlName ||
+          (item?.props as any)?.controlName
         // 渲染联动表单控件
         if (isFormControl && controlName === 'FormDependency') {
           item = cloneElement(item, {
@@ -196,7 +201,7 @@ const RHMForm = forwardRef((props, ref) => {
   // 暴露表单方法
   useImperativeHandle(
     ref,
-    () => ({
+    (): CustomizeFormExpose => ({
       validate: () => {
         return new Promise((resolve, reject) => {
           validator

@@ -9,6 +9,7 @@ import FormSwitch from './components/switch'
 import FormTextarea from './components/textarea'
 import FormUpload from './components/upload'
 import FormCascader from './components/cascader'
+import FormDatePicker from './components/datePicker'
 
 export {
   RHMForm,
@@ -21,5 +22,6 @@ export {
   FormSwitch,
   FormTextarea,
   FormCascader,
+  FormDatePicker,
   FormUpload
 }

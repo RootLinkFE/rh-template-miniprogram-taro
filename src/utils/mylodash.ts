@@ -89,6 +89,12 @@ const deepClone = (obj) => {
   return clone
 }
 
+const uuid = () => {
+  return `${Math.random()
+    .toString(36)
+    .substring(2)}`
+}
+
 export {
   isNumber,
   isBoolean,
@@ -107,5 +113,6 @@ export {
   deepGet,
   pick,
   clampNumber,
-  deepClone
+  deepClone,
+  uuid
 }
