@@ -7,7 +7,7 @@ const NavigationMethodMap = {
   push: 'navigateTo',
   replace: 'redirectTo',
   back: 'navigateBack',
-  switchType: 'switchTab',
+  switchTab: 'switchTab',
   reLaunch: 'reLaunch'
 }
 export const NavigationMethodType =
