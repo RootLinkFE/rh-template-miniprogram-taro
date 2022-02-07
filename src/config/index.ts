@@ -12,7 +12,8 @@ export const defaultConfig = {
   api: {},
   backendRouterPageBlackList: [],
   backendRouterPageKeyBlackList: [],
-  get: (key) => get(this, key)
+  get: (key) => get(this, key),
+  start: (...args) => {}
 }
 
 /* eslint-disable */

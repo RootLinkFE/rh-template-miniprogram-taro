@@ -4,6 +4,7 @@ import Taro from '@tarojs/taro'
 import React, { useState, useEffect, useMemo } from 'react'
 import { ArrowLeft } from '@taroify/icons'
 import './index.less'
+import SystemPower from '@/utils/system'
 
 function RHMHeadNav(props) {
   /**
@@ -22,10 +23,10 @@ function RHMHeadNav(props) {
   } = props
   const [navBarHeight, setNavBarHeight] = useState()
 
-  const getNavHeight = () => {
+  const getNavHeight = async () => {
     let menuButtonObject = Taro.getMenuButtonBoundingClientRect()
-    var sysinfo = Taro.getSystemInfoSync()
-    let statusBarHeight = sysinfo.statusBarHeight
+    const sysInfo = SystemPower.get()
+    let statusBarHeight = sysInfo.statusBarHeight
     let menuBottonHeight = menuButtonObject.height
     let menuBottonTop = menuButtonObject.top
     let barHeight =

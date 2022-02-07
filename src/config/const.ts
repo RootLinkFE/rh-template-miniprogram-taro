@@ -1,5 +1,5 @@
 /* ---------------- 后端URL start-------------------------------*/
-export const BASE_URL = '/'
+export const BASE_URL = 'https://devadminweb.yaowutech.cn/api'
 /* ---------------- 后端URL end-------------------------------*/
 /* ---------------- H5 start-------------------------------*/
 export const H5_URL = '/'

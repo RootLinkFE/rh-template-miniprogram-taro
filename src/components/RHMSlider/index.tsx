@@ -1,3 +1,4 @@
+import SystemPower from '@/utils/system'
 import { ScrollView, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import React, { useEffect, useMemo, useState, useRef } from 'react'
@@ -23,7 +24,9 @@ function RHMSlider(props) {
 
   useEffect(() => {
     const calcItemWidth = () => {
-      const { windowWidth } = Taro.getSystemInfoSync()
+      const {
+        info: { windowWidth }
+      } = SystemPower.get()
       const queryDom = Taro.createSelectorQuery()
       queryDom
         .selectAll('.slider-item')
@@ -57,7 +60,7 @@ function RHMSlider(props) {
       style={{
         width: `calc(100% - ${wrapLeft}rpx)`,
         ...wrapStyle,
-        visibility: visibleRef.current,
+        visibility: visibleRef.current
       }}
       scrollX={true}
       scrollWithAnimation={true}

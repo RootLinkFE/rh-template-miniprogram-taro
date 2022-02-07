@@ -8,6 +8,7 @@ import {
   isObject,
   flatten
 } from './mylodash'
+import dayjs from "dayjs";
 
 export const noop = () => {}
 
@@ -49,7 +50,7 @@ export const toBoolean = (value) => {
 }
 
 export function parseJSON(json) {
-  if (isObject()) {
+  if (isObject(json)) {
     return json
   }
   if (isString(json)) {
@@ -223,3 +224,27 @@ export const getQueryObject = (url) => {
   })
   return obj
 }
+
+/**
+ * 获取格式化日期时间
+ */
+ export const getFormatTime = (value, type) => {
+  if (value)
+    switch (type) {
+      case "date":
+        return dayjs(value).format("YYYY-MM-DD");
+      case "time":
+        return dayjs(value).format("HH:mm:ss");
+      case "datetime":
+        return dayjs(value).format("YYYY-MM-DD HH:mm:ss");
+      case "date-hour":
+        return dayjs(value).format("YYYY-MM-DD HH");
+      case "month-day":
+        return dayjs(value).format("MM-DD");
+      case "year-month":
+        return dayjs(value).format("YYYY-MM");
+      default:
+        return dayjs(value).format("YYYY-MM-DD");
+    }
+  return;
+};

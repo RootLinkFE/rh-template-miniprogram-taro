@@ -20,7 +20,7 @@ RegExp.escape = function(s) {
  */
 const configList = [
   {
-    uri: './src/config/const.js',
+    uri: './src/config/const.ts',
     noRegExpEscape: true,
     oldStr: ["export const BASE_URL = '(.*)'"],
     newStr: [`export const BASE_URL = '${config.BASEURL[env]}'`],

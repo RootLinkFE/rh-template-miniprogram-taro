@@ -1,6 +1,7 @@
+import SystemPower from '@/utils/system'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { useRef, useState, useCallback, useEffect } from 'react'
+import { useRef, useState, useCallback, useEffect, useMemo } from 'react'
 import './index.less'
 import Popover from './popover'
 import PopoverItem from './popoverItem'
@@ -76,7 +77,9 @@ export default function TaroPopover(props) {
 
   const onDisplay = (e) => {
     const { lastId = '', current } = refPopover
-    const { windowHeight, windowWidth } = Taro.getSystemInfoSync()
+    const {
+      info: { windowHeight, windowWidth }
+    } = SystemPower.get()
     const trangleHeight = 0
     if (!current) return
     if (lastId && lastId === current.uid) {
@@ -139,14 +142,19 @@ export default function TaroPopover(props) {
     return state.itemHeight * list.length
   }
 
-  const { windowHeight, windowWidth } = Taro.getSystemInfoSync()
-  const maskStyle = {
-    position: 'fixed',
-    height: windowHeight + 'px',
-    width: windowWidth + 'px',
-    background: 'transparent',
-    zIndex: 1000
-  }
+  const maskStyle = useMemo(() => {
+    const {
+      info: { windowHeight, windowWidth }
+    } = SystemPower.get()
+    return {
+      position: 'fixed',
+      height: windowHeight + 'px',
+      width: windowWidth + 'px',
+      background: 'transparent',
+      zIndex: 1000
+    }
+  }, [])
+
   return (
     <View onClick={handleClick}>
       <View ref={refPopover} className='button_popver' style={props.style}>
