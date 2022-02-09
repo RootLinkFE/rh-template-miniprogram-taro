@@ -10,7 +10,7 @@ const NavigationMethodMap = {
   switchTab: 'switchTab',
   reLaunch: 'reLaunch'
 }
-export const NavigationMethodType =
+export type NavigationMethodType =
   'push' | 'replace' | 'back' | 'reLaunch' | 'switchTab'
 
 /**

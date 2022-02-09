@@ -11,7 +11,10 @@ const config = {
   sourceRoot: 'src',
   outputRoot: 'dist',
   plugins: [],
-  defineConstants: {},
+  defineConstants: {
+    // 是否自定义tabbar
+    NEED_CUSTOM_TABBAR: true
+  },
   copy: {
     patterns: [],
     options: {}

@@ -1,3 +1,7 @@
+/**
+ * 需要引入官方jssdk https://lbs.qq.com/miniProgram/jsSdk/jsSdkGuide/jsSdkOverview
+ */
+
 import Taro from '@tarojs/taro'
 import { regionJSON } from '../components/RHMForm/components/picker/addrData'
 import GlobalToast from '../utils/toast'

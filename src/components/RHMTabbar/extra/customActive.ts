@@ -1,19 +1,19 @@
 let active = false
-const bus = []
+const bus: any[] = []
 
-export const getActive = function() {
+export const getActive = () => {
   return active
 }
 
-export const setActive = function(status) {
+export const setActive = (status) => {
   active = status
-  bus.forEach((fn) => {
+  bus.forEach((fn: (v) => void) => {
     if (typeof fn === 'function') {
-      fn(active)
+      fn && fn(active)
     }
   })
 }
-export const listenActiveChange = function(fn) {
+export const listenActiveChange = (fn: () => void) => {
   bus.push(fn)
 }
 

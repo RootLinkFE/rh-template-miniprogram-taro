@@ -6,3 +6,4 @@ node_modules/
 .DS_Store
 preview.png
 private.key
+project.config.json

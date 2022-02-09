@@ -12,6 +12,7 @@ import {
   RHMForm
 } from '@/components/RHMForm'
 import { useCallback, useRef, useState, useEffect } from 'react'
+import Taro from '@tarojs/taro'
 
 const DemoPage = () => {
   const formRef = useRef<any>(null)

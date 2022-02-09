@@ -1,5 +1,5 @@
 import doubleArrow from '@/assets/svg/double-arrow.svg'
-import CalendarImg from '@/assets/image/calendar@2x.png'
+import CalendarImg from '@/assets/images/calendar@2x.png'
 import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { Image, Text, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import { ArrowLeft, ArrowRight, CalendarOutlined } from '@taroify/icons'
 import CalendarItem from './CalendarItem'
 import { useDate } from './useDate'
-import './index.scss'
+import './index.less'
 import { formatMonthData, formatWeekData, patchMonth, throttle } from './util'
 
 const head = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']

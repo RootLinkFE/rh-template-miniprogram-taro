@@ -4,9 +4,14 @@ import React from 'react'
 import NavigationService from '@/utils/navigation'
 // import {getDotList, listenDotListChange} from './extra/redDot'
 import { getActive, setActive, listenActiveChange } from './extra/customActive'
+import * as ImageService from '@/services/dynamicImage'
 import './index.less'
 
 type PropType = {
+  route: string
+}
+
+type StateType = {
   activeIdx: any
   config: any
   list: any
@@ -37,25 +42,32 @@ const fixListConfig = function(item, index) {
   return result
 }
 
-class RHMTabbar extends React.Component<any, PropType> {
+class RHMTabbar extends React.Component<PropType, StateType> {
   static _tabBar: any = Taro.getCurrentInstance()
 
-  constructor(props) {
-    console.log(Taro.getCurrentInstance(), 'Taro.getCurrentInstance()')
+  constructor(props: PropType) {
     super(props)
+    const tabBarList = RHMTabbar._tabBar.app.config.tabBar.list.map(
+      fixListConfig
+    )
     this.state = {
-      activeIdx: -1,
-      config: RHMTabbar._tabBar,
-      list: RHMTabbar._tabBar.app.config.tabBar.list.map(fixListConfig) || [],
+      activeIdx: tabBarList.find((item) => item.pagePath === `${props.route}`)
+        .idx,
+      config: {
+        ...RHMTabbar._tabBar.app.config.tabBar,
+        customNode: Taro.getApp().$app.customNode
+      },
+      list: tabBarList || [],
       // 自定义节点
-      customOrder: Math.floor(RHMTabbar._tabBar.app.config.tabBar.list.length / 2) - 1,
+      customOrder:
+        Math.floor(RHMTabbar._tabBar.app.config.tabBar.list.length / 2) - 1,
       customActive: false,
       customTransitionTime: '0.3s'
     }
   }
 
   componentDidMount() {
-    console.log(RHMTabbar._tabBar.app.config.tabBar)
+    listenActiveChange(this.updateCustomNodeActive.bind(this))
   }
 
   switchTab(evt) {
@@ -69,17 +81,6 @@ class RHMTabbar extends React.Component<any, PropType> {
     )
   }
 
-  // updateRedDot() {
-  //   if (Array.isArray(getDotList())) {
-  //     this.setState({
-  //       list: this.state?.list.map((item) => {
-  //         item.redDot = getDotList()[item.idx]
-  //         return item
-  //       })
-  //     })
-  //   }
-  // }
-
   updateCustomNodeActive(status) {
     this.setState({
       customActive: status
@@ -87,11 +88,18 @@ class RHMTabbar extends React.Component<any, PropType> {
   }
 
   handleCustomNodeTap() {
-    setActive(!this.state.customActive)
+    const {
+      customNode: { pagePath, pagePathParams = {}, needTabBar }
+    } = this.state.config
+    NavigationService.navigate(pagePath, pagePathParams, {
+      navigationMethod: needTabBar ? 'switchTab' : 'push'
+    })
+    needTabBar && setActive(!this.state.customActive)
   }
 
   render() {
-    const { config, list, activeIdx, customOrder } = this.state
+    const { config, list, activeIdx, customOrder, customActive } = this.state
+    console.log(config.customNode.iconPath, 'config.customNode')
     return (
       <View
         className='tab-bar'
@@ -131,10 +139,17 @@ class RHMTabbar extends React.Component<any, PropType> {
             <View
               className='tab-bar-item custom'
               style={{ order: customOrder }}
-              onClick={this.handleCustomNodeTap}
+              onClick={this.handleCustomNodeTap.bind(this)}
             >
               <View className='tab-bar-item-icon'>
-                {/* <Image style={{`${customActive ? config.customNode.activeStyle : config.customNode.style} transition: ${customTransitionTime}`}} src={config.customNode.iconPath} /> */}
+                <Image
+                  style={
+                    customActive
+                      ? config.customNode.activeStyle
+                      : config.customNode.style
+                  }
+                  src={ImageService[config.customNode.iconName]}
+                />
               </View>
             </View>
           )}

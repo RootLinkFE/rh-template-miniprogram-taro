@@ -1,29 +1,42 @@
-import Taro, { Events } from '@tarojs/taro';
-import { removeItem } from './common';
+import Taro, { Events } from '@tarojs/taro'
+import { removeItem } from './common'
 
 // Taro 还提供了一个全局消息中心
-export const eventCenter = Taro.eventCenter;
+export const eventCenter = Taro.eventCenter
 
-export const EventProxy = (() => {
+export interface EventProxyType {
+  on: (ev: string, callback: (r: any) => void) => void
+  off: (ev: string, callback: (r: any) => void) => void
+  trigger: (ev: string, data: any | any[]) => void
+  after: (ev: string, time: number, data: any | any[]) => void
+  group: (ev: string, callback: (r: any) => void) => void
+}
+
+export const EventProxy: () => void = (() => {
   /* 闭包实现单例event的模式 */
-  const ALL_EVENT = '__all__';
-  const SLICE = Array.prototype.slice;
+  const ALL_EVENT = '__all__'
+  const SLICE = Array.prototype.slice
   // 每个EventProxy实例对应一个 Taro.Events 的实例
-  const event = new Events();
-  let ins;
+  const event = new Events()
+  let ins: EventProxyType;
   class EventEmmiter {
     //Taro 还提供了一个全局消息中心 Taro.eventCenter 以供使用，它是 Taro.Events 的实例
-    static eventCenter = Taro.eventCenter;
+    static eventCenter = Taro.eventCenter
 
-    constructor(debug) {
-      this._callbacks = {};
-      this._fired = {};
-      this._debug = debug;
+    _callbacks = {}
+    _fired = {}
+    _after = {}
+    _debug = false
+
+    constructor(debug = false) {
+      this._callbacks = {}
+      this._fired = {}
+      this._debug = debug
     }
 
     debug(msg, ev, data) {
       if (this._debug) {
-        console.warn(msg, ev, data);
+        console.warn(msg, ev, data)
       }
     }
 
@@ -41,7 +54,7 @@ export const EventProxy = (() => {
      * @param {Function} callback Callback.
      */
     on(ev, callback) {
-      event.on(ev, callback);
+      event.on(ev, callback)
     }
 
     /**
@@ -53,7 +66,7 @@ export const EventProxy = (() => {
      * @param {Function} callback Callback.
      */
     off(ev, callback) {
-      event.off(ev, callback);
+      event.off(ev, callback)
     }
 
     /**
@@ -64,39 +77,39 @@ export const EventProxy = (() => {
      * @param {Mix} ...args Pass in data
      */
     trigger(eventname, ...data) {
-      let list, ev, callback, i, l;
-      let both = 2;
-      let calls = this._callbacks;
-      this.debug('Emit event %s with data %j', eventname, data);
+      let list, ev, callback, i, l
+      let both = 2
+      let calls = this._callbacks
+      this.debug('Emit event %s with data %j', eventname, data)
       while (both--) {
-        ev = both ? eventname : ALL_EVENT;
-        list = calls[ev];
+        ev = both ? eventname : ALL_EVENT
+        list = calls[ev]
         if (list) {
           for (i = 0, l = list.length; i < l; i++) {
             if (!(callback = list[i])) {
-              list.splice(i, 1);
-              i--;
-              l--;
+              list.splice(i, 1)
+              i--
+              l--
             } else {
-              let args = [];
-              let start = both ? 1 : 0;
+              let args: any[] = []
+              let start = both ? 1 : 0
               for (let j = start; j < arguments.length; j++) {
-                args.push(arguments[j]);
+                args.push(arguments[j])
               }
               if (both) {
-                event.trigger(eventname, ...data);
+                event.trigger(eventname, ...data)
               } else {
-                callback.apply(this, args);
+                callback.apply(this, args)
               }
             }
           }
         } else {
           if (both) {
-            event.trigger(eventname, ...data);
+            event.trigger(eventname, ...data)
           }
         }
       }
-      return this;
+      return this
     }
 
     /**
@@ -107,51 +120,51 @@ export const EventProxy = (() => {
      */
     after(ev, times, callback) {
       if (times === 0) {
-        callback.call(null, []);
-        return this;
+        callback.call(null, [])
+        return this
       }
-      let firedData = [];
-      this._after = this._after || {};
-      let group = ev + '_group';
-      this._after[group] = { index: 0, results: [] };
+      let firedData: any[] = []
+      this._after = this._after || {}
+      let group = ev + '_group'
+      this._after[group] = { index: 0, results: [] }
 
       const all = (name, data) => {
         if (name === ev) {
-          times--;
-          firedData.push(data);
+          times--
+          firedData.push(data)
           if (times < 1) {
             this.debug(
               'Event %s was emit %s, and execute the listenner',
               ev,
               times
-            );
-            this.unbindForAll(all);
-            callback.apply(null, [firedData]);
-            let list = this._callbacks[ev];
-            console.log(list);
+            )
+            this.unbindForAll(all)
+            callback.apply(null, [firedData])
+            let list = this._callbacks[ev]
+            console.log(list)
           }
         }
         // order data
         if (name === group) {
-          times--;
-          this._after[group].results[data.index] = data.result;
+          times--
+          this._after[group].results[data.index] = data.result
           if (times < 1) {
             this.debug(
               'Event %s was emit %s, and execute the listenner',
               ev,
               times
-            );
-            this.unbindForAll(all);
-            callback.call(null, this._after[group].results);
-            let list = this._callbacks[ev];
-            console.log(list);
+            )
+            this.unbindForAll(all)
+            callback.call(null, this._after[group].results)
+            let list = this._callbacks[ev]
+            console.log(list)
           }
         }
-      };
+      }
       /*  this._callbacks[ev] = this._callbacks[ev] || [];
       this._callbacks[ev].push(all); */
-      this.bindForAll(all);
-      return this;
+      this.bindForAll(all)
+      return this
     }
 
     /**
@@ -171,49 +184,49 @@ export const EventProxy = (() => {
      * @param {Function} callback Callback function, should return the final result.
      */
     group(eventname, callback) {
-      let group = eventname + '_group';
-      let index = this._after[group].index;
-      this._after[group].index++;
+      let group = eventname + '_group'
+      let index = this._after[group].index
+      this._after[group].index++
       return (err, data) => {
         if (err) {
           // put all arguments to the error handler
           return this.trigger.apply(
             this,
             ['error'].concat(SLICE.call(arguments))
-          );
+          )
         }
         this.trigger(group, {
           index: index, // callback(err, args1, args2, ...)
           result: callback
             ? callback.apply(null, SLICE.call(arguments, 1))
             : data
-        });
-      };
+        })
+      }
     }
 
     /**
      * Bind the ALL_EVENT event
      */
     bindForAll(callback) {
-      this._callbacks[ALL_EVENT] = this._callbacks[ALL_EVENT] || [];
-      this._callbacks[ALL_EVENT].push(callback);
-      this.on(ALL_EVENT, callback);
+      this._callbacks[ALL_EVENT] = this._callbacks[ALL_EVENT] || []
+      this._callbacks[ALL_EVENT].push(callback)
+      this.on(ALL_EVENT, callback)
     }
 
     /**
      * Unbind the ALL_EVENT event
      */
     unbindForAll(callback) {
-      removeItem(this._callbacks[ALL_EVENT], callback);
-      this.off(ALL_EVENT, callback);
+      removeItem(this._callbacks[ALL_EVENT], callback)
+      this.off(ALL_EVENT, callback)
     }
   }
 
   return () => {
     if (ins) {
-      return ins;
+      return ins
     }
     ins = new EventEmmiter()
-    return ins;
-  };
-})();
+    return ins
+  }
+})()

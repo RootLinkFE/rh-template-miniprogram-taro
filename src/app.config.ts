@@ -1,9 +1,9 @@
 export default {
-  pages: ['pages/home/index', 'pages/mine/index', 'pages/login/index'],
+  pages: ['pages/home/index', 'pages/mine/index'],
   subPackages: [
     {
       root: 'pagesA',
-      pages: ['demo/index']
+      pages: ['demo/index', 'login/index']
     }
   ],
   window: {

@@ -1,9 +1,13 @@
 /* ---------------- 后端URL start-------------------------------*/
-export const BASE_URL = 'https://devadminweb.yaowutech.cn/api'
+export const BASE_URL = 'https://dev.com/api'
 /* ---------------- 后端URL end-------------------------------*/
 /* ---------------- H5 start-------------------------------*/
 export const H5_URL = '/'
 /* ---------------- H5 end-------------------------------*/
+
+/* ---------------- 事件名称 start-------------------------------*/
+export const EVENT_TABBAR_ROUTE = 'event_tabbar_route'
+/* ---------------- 事件名称 end-------------------------------*/
 
 
 export const WECHAT_CODE = '_wechat_code_'

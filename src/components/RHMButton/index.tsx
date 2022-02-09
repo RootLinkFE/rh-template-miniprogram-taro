@@ -4,7 +4,7 @@ import { getExtMode, isNotEmpty, debounce } from '@/utils/common'
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { Button } from '@taroify/core'
-import NavigationService, { NavigationMethodType } from '@/utils/navigation'
+import NavigationService from '@/utils/navigation'
 
 import './index.less'
 
@@ -173,7 +173,7 @@ RHMButton.propTypes = {
   type: PropTypes.string,
   ajax: PropTypes.bool,
   disabled: PropTypes.bool,
-  navigationMethod: NavigationMethodType,
+  navigationMethod: PropTypes.string, // 'push' | 'replace' | 'back' | 'reLaunch' | 'switchTab'
   openType: PropTypes.string,
   children: React.ReactNode,
   className: PropTypes.string,
