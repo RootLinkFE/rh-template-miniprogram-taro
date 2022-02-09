@@ -99,7 +99,6 @@ class RHMTabbar extends React.Component<PropType, StateType> {
 
   render() {
     const { config, list, activeIdx, customOrder, customActive } = this.state
-    console.log(config.customNode.iconPath, 'config.customNode')
     return (
       <View
         className='tab-bar'
