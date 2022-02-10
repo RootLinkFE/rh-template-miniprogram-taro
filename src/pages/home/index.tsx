@@ -22,9 +22,13 @@ class Home extends React.Component<any, { currentRoute: string }> {
 
   render() {
     return (
-      <View>
-        <RHMButton onClick={this.handleJump}>跳转demo页面</RHMButton>
-        {NEED_CUSTOM_TABBAR && <RHMTabbar route={this.state.currentRoute}></RHMTabbar>}
+      <View className={NEED_CUSTOM_TABBAR ? 'tarbar-page' : ''}>
+        <View className='home-page'>
+          <RHMButton onClick={this.handleJump}>跳转demo页面</RHMButton>
+          {NEED_CUSTOM_TABBAR && (
+            <RHMTabbar route={this.state.currentRoute}></RHMTabbar>
+          )}
+        </View>
       </View>
     )
   }

@@ -14,9 +14,13 @@ class Mine extends React.Component<any, { currentRoute: string }> {
 
   render() {
     return (
-      <View>
-        我的页面
-        {NEED_CUSTOM_TABBAR && <RHMTabbar route={this.state.currentRoute}></RHMTabbar>}
+      <View className={NEED_CUSTOM_TABBAR ? 'tarbar-page' : ''}>
+        <View className='mine-page'>
+          我的页面
+          {NEED_CUSTOM_TABBAR && (
+            <RHMTabbar route={this.state.currentRoute}></RHMTabbar>
+          )}
+        </View>
       </View>
     )
   }
