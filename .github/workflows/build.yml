@@ -40,7 +40,7 @@ jobs:
 
       - name: Need Install Project Dependencies?
         id: need_install
-        run: node ./scripts/ci/compare-pk.js
+        run: test=node ./scripts/ci/compare-pk.js
 
       - name: Install Project Dependencies
         # if: ${{steps.need_install.outputs}} == true
