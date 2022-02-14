@@ -22,10 +22,10 @@ exec('git diff HEAD^ -- ./package.json', function(
     const regexStr = `NODE_MODULES_VERSION: '${npmPackageName}-(.*?)'`
     const regex = new RegExp(regexStr, 'g')
     let newData = ''
+    console.log('git diff stdout: ', stdout, '123', stderr, 'error', error)
     if (error) {
       throw error
     }
-    console.log('git diff stdout: ', stdout, '123', stderr)
     if (!stdout) {
       console.log('package.json 无修改')
       throw '无修改'
