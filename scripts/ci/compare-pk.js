@@ -32,6 +32,6 @@ exec('git diff --cached --name-only package.json', function(
     }
     return true
   } catch (error) {
-    console.error('error: ' + error)
+    console.error('error1: ' + error)
   }
 })

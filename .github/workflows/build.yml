@@ -43,11 +43,11 @@ jobs:
         run: node ./scripts/ci/compare-pk.js
 
       - name: Install Project Dependencies
-        if: success()
+        if: ${{success()}}
         run: npx yarn
 
       - name: Jump Install Project Dependencies
-        if: always()
+        if: ${{failure()}}
         run: echo "跳过依赖安装"
 
       - name: Build
