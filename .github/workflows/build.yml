@@ -41,7 +41,7 @@ jobs:
 
       - name: Install Project Dependencies
         if: success()
-        run: echo ${{steps.generate_number.outputs}}
+        run: echo "${{ steps.generate_number.outputs }}"
 
       # - name: Jump Install Project Dependencies
       #   if: failure()
