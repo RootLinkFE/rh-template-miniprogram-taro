@@ -32,6 +32,7 @@ exec('git diff -w package.json', function(
     }
     return true
   } catch (error) {
+    return new Error('asdf')
     console.error('error1: ' + error)
   }
 })
