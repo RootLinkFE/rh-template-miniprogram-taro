@@ -40,15 +40,16 @@ jobs:
 
       - name: Need Install Project Dependencies?
         id: need_install
-        run: test=$(node ./scripts/ci/compare-pk.js)
+        run: node ./scripts/ci/compare-pk.js
 
       - name: Install Project Dependencies
-        # if: ${{steps.need_install.outputs}} == true
-        run: echo "${{steps.need_install.outcome}}" |  echo "${{toJSON(steps.need_install.outputs)}}"
+        if: success()
+        run: npx yarn
 
-      # - name: Jump Install Project Dependencies
-      #   if: ${{steps.generate_number.outputs.need_install}} == false
-      #   run: node console.log('跳过依赖安装')
+      - name: Jump Install Project Dependencies
+        if: always()
+        run: node console.log('跳过依赖安装')
 
-      # - name: Build
-      #   run: npm run build:dev
+      - name: Build
+        if: always()
+        run: npm run build:dev
