@@ -37,7 +37,7 @@ jobs:
 
       - name: Need Install Project Dependencies?
         id: need_install
-        run: test=node ./scripts/ci/compare-pk.js
+        run: echo "test=${node ./scripts/ci/compare-pk.js}"
 
       - name: Install Project Dependencies
         if: success()
