@@ -1,0 +1,42 @@
+name: CI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.0.0]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
+
+      # Get commit message
+      - name: Get commit message
+        run: |
+          COMMIT_MESSAGE=$(git log --format=%s -n 1)
+          echo "commitmsg=${COMMIT_MESSAGE}" >> $GITHUB_ENV
+
+      # - name: Show commit message
+      #   run: |
+      #     echo "$commitmsg"
+      #     echo "${{ github.event.inputs.buildBranch }}"
+
+      - name: Need Install Project Dependencies?
+        run: node ./scripts/ci/compare-pk.js
+
+      - name: Install Project Dependencies
+        if: success()
+        run: npx yarn
+
+      - name: Jump Install Project Dependencies
+        if: failure()
+        run: node console.log('跳过依赖安装')
+
+      - name: Build
+        run: node npm run build:dev

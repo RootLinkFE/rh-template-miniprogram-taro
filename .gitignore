@@ -8,3 +8,4 @@ preview.png
 private.key
 project.config.json
 project.private.config.json
+yarn.lock
