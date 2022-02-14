@@ -41,7 +41,7 @@ jobs:
 
       - name: Install Or Jump
         run: |
-          if [[ ${{ steps.need_install.outputs }} == true ]]; then npx yarn; else void; fi
+          if [[ ${{ steps.need_install.outputs }} == true ]]; then npx yarn; else exit; fi
 
       # - name: Jump
       #   if: ${{ steps.need_install.outputs }} == false
