@@ -13,7 +13,7 @@ const uuid = () => {
 }
 
 // 监听package.json 文件版本更新，然后脚本自动修改NODE_MODULES_VERSION版本号
-exec('git diff HEAD^ -- ./package.json', function(
+exec('git diff HEAD~ -- ./package.json', function(
   error,
   stdout,
   stderr
