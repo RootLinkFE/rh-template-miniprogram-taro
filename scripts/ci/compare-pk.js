@@ -18,17 +18,20 @@ exec('git diff --cached --name-only package.json', function(
   stdout,
   stderr
 ) {
-  const regexStr = `NODE_MODULES_VERSION: '${npmPackageName}-(.*?)'`
-  const regex = new RegExp(regexStr, 'g')
-  let newData = ''
-  if (error) {
+  try {
+    const regexStr = `NODE_MODULES_VERSION: '${npmPackageName}-(.*?)'`
+    const regex = new RegExp(regexStr, 'g')
+    let newData = ''
+    if (error) {
+      throw error
+    }
+    console.log('git diff stdout: ', stdout)
+    if (!stdout) {
+      console.log('package.json 无修改')
+      throw '无修改'
+    }
+    return true
+  } catch (error) {
     console.error('error: ' + error)
-    return false
   }
-  console.log('git diff stdout: ', stdout)
-  if (!stdout) {
-    console.log('package.json 无修改')
-    throw 'safasdf'
-  }
-  return true
 })

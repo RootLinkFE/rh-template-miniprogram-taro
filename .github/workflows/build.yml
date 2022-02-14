@@ -48,7 +48,7 @@ jobs:
 
       - name: Jump Install Project Dependencies
         if: always()
-        run: node console.log('跳过依赖安装')
+        run: echo "跳过依赖安装"
 
       - name: Build
         if: always()
