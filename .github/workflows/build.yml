@@ -37,21 +37,18 @@ jobs:
       #   run: |
       #     echo "$commitmsg"
       #     echo "${{ github.event.inputs.buildBranch }}"
-      
-
-      - name: Install CI Dependencies
-        run: npm install @actions/core -D
 
       - name: Need Install Project Dependencies?
+        id: need_install
         run: node ./scripts/ci/compare-pk.js
 
       - name: Install Project Dependencies
-        if: ${{steps.generate_number.outputs.need_install}} == true
-        run: npx yarn
+        # if: ${{steps.need_install.outputs}} == true
+        run: echo "${{steps.need_install.outputs}}"
 
-      - name: Jump Install Project Dependencies
-        if: ${{steps.generate_number.outputs.need_install}} == false
-        run: node console.log('跳过依赖安装')
+      # - name: Jump Install Project Dependencies
+      #   if: ${{steps.generate_number.outputs.need_install}} == false
+      #   run: node console.log('跳过依赖安装')
 
-      - name: Build
-        run: npm run build:dev
+      # - name: Build
+      #   run: npm run build:dev
