@@ -47,4 +47,4 @@ jobs:
         run: node console.log('跳过依赖安装')
 
       - name: Build
-        run: node npm run build:dev
+        run: npm run build:dev
