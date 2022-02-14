@@ -41,11 +41,11 @@ jobs:
 
       - name: Install Project Dependencies
         if: success()
-        run: npx yarn
+        run: echo ${{steps.generate_number.outputs}}
 
-      - name: Jump Install Project Dependencies
-        if: failure()
-        run: node console.log('跳过依赖安装')
+      # - name: Jump Install Project Dependencies
+      #   if: failure()
+      #   run: node console.log('跳过依赖安装')
 
-      - name: Build
-        run: npm run build:dev
+      # - name: Build
+      #   run: npm run build:dev
