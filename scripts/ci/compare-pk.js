@@ -25,7 +25,7 @@ exec('git diff HEAD -- ./package.json', function(
     if (error) {
       throw error
     }
-    console.log('git diff stdout: ', stdout)
+    console.log('git diff stdout: ', stdout, '123', stderr)
     if (!stdout) {
       console.log('package.json 无修改')
       throw '无修改'
