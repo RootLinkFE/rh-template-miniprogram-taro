@@ -1,6 +1,5 @@
 'use strict'
 
-const core = require('@actions/core');
 const fs = require('fs')
 const exec = require('child_process').exec
 // const execSync = require('child_process').execSync;
