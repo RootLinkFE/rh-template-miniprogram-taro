@@ -40,7 +40,7 @@ jobs:
       
 
       - name: Install CI Dependencies
-        run: npx yarn install @actions/core
+        run: npx yarn add @actions/core
 
       - name: Need Install Project Dependencies?
         run: node ./scripts/ci/compare-pk.js
