@@ -39,13 +39,13 @@ jobs:
         id: need_install
         run: node ./scripts/ci/compare-pk.js
 
-      - name: Install
-        if: ${{ steps.need_install.outputs }} == true
-        run: npx yarn
+      - name: Install Or Jump
+        run: |
+          if [[ ${{ steps.need_install.outputs }} == true ]]; then npx yarn; else void; fi
 
-      - name: Jump
-        if: ${{ steps.need_install.outputs }} == false
-        run: node console.log('跳过依赖安装')
+      # - name: Jump
+      #   if: ${{ steps.need_install.outputs }} == false
+      #   run: node console.log('跳过依赖安装')
 
       - name: Build
         run: npm run build:dev
