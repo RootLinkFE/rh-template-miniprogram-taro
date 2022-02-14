@@ -44,7 +44,7 @@ jobs:
 
       - name: Install Project Dependencies
         # if: ${{steps.need_install.outputs}} == true
-        run: echo "${{steps.need_install.outputs}}"
+        run: echo "${{toJSON(steps.need_install.outputs)}}"
 
       # - name: Jump Install Project Dependencies
       #   if: ${{steps.generate_number.outputs.need_install}} == false
