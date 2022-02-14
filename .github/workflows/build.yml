@@ -40,7 +40,7 @@ jobs:
       
 
       - name: Install CI Dependencies
-        run: npx npm install @actions/core -g
+        run: npm install @actions/core -g
 
       - name: Need Install Project Dependencies?
         run: node ./scripts/ci/compare-pk.js
