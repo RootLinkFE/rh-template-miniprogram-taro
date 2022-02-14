@@ -24,7 +24,7 @@ exec('git diff --cached --name-only package.json', function(error, stdout, stder
   console.log('git diff stdout: ', stdout);
   if (!stdout) {
     console.log('package.json 无修改');
-    return false
+    return true
   }
-  return true
+  return false
 });
