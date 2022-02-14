@@ -1,5 +1,6 @@
 'use strict'
 
+const core = require('@actions/core');
 const fs = require('fs')
 const exec = require('child_process').exec
 // const execSync = require('child_process').execSync;
@@ -28,7 +29,9 @@ exec('git diff --cached --name-only package.json', function(
   console.log('git diff stdout: ', stdout)
   if (!stdout) {
     console.log('package.json 无修改')
+    core.setOutput("need_install", false);
     return false
   }
+  core.setOutput("need_install", true);
   return true
 })

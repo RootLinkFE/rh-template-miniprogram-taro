@@ -1,12 +1,15 @@
 name: CI
 
-on:
+on: 
   push:
     branches:
-      - master
+    - master
   pull_request:
     branches:
-      - master
+    - master
+    
+env:
+  NEED_INSTALL: true
 
 jobs:
   build:
@@ -36,16 +39,15 @@ jobs:
       #     echo "${{ github.event.inputs.buildBranch }}"
 
       - name: Need Install Project Dependencies?
-        id: need_install
-        run: echo "test=${node ./scripts/ci/compare-pk.js}"
+        run: node ./scripts/ci/compare-pk.js
 
       - name: Install Project Dependencies
-        if: success()
-        run: echo "$test"
+        if: ${{steps.generate_number.outputs.need_install}} == true
+        run: npx yarn
 
-      # - name: Jump Install Project Dependencies
-      #   if: failure()
-      #   run: node console.log('跳过依赖安装')
+      - name: Jump Install Project Dependencies
+        if: ${{steps.generate_number.outputs.need_install}} == false
+        run: node console.log('跳过依赖安装')
 
-      # - name: Build
-      #   run: npm run build:dev
+      - name: Build
+        run: npm run build:dev
