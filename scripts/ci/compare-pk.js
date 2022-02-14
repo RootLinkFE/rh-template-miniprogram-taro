@@ -1,5 +1,6 @@
 'use strict'
 
+const core = require('@actions/core');
 const fs = require('fs')
 const exec = require('child_process').exec
 // const execSync = require('child_process').execSync;
@@ -12,29 +13,25 @@ const uuid = () => {
     .substr(2)}`
 }
 
-function compare() {
-  return new Promise((resolve, reject) => {
-    // 监听package.json 文件版本更新，然后脚本自动修改NODE_MODULES_VERSION版本号
-    exec('git diff --cached --name-only package.json', function(
-      error,
-      stdout,
-      stderr
-    ) {
-      const regexStr = `NODE_MODULES_VERSION: '${npmPackageName}-(.*?)'`
-      const regex = new RegExp(regexStr, 'g')
-      let newData = ''
-      if (error) {
-        console.error('error: ' + error)
-        return reject()
-      }
-      console.log('git diff stdout: ', stdout)
-      if (!stdout) {
-        console.log('package.json 无修改')
-        return resolve(false)
-      }
-      return resolve(true)
-    })
-  })
-}
-
-compare()
+// 监听package.json 文件版本更新，然后脚本自动修改NODE_MODULES_VERSION版本号
+exec('git diff --cached --name-only package.json', function(
+  error,
+  stdout,
+  stderr
+) {
+  const regexStr = `NODE_MODULES_VERSION: '${npmPackageName}-(.*?)'`
+  const regex = new RegExp(regexStr, 'g')
+  let newData = ''
+  if (error) {
+    console.error('error: ' + error)
+    return false
+  }
+  console.log('git diff stdout: ', stdout)
+  if (!stdout) {
+    console.log('package.json 无修改')
+    core.setOutput("need_install", false);
+    return false
+  }
+  core.setOutput("need_install", true);
+  return true
+})
