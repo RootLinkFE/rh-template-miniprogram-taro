@@ -37,6 +37,10 @@ jobs:
       #   run: |
       #     echo "$commitmsg"
       #     echo "${{ github.event.inputs.buildBranch }}"
+      
+
+      - name: Install CI Dependencies
+        run: npx yarn install @actions/core
 
       - name: Need Install Project Dependencies?
         run: node ./scripts/ci/compare-pk.js
