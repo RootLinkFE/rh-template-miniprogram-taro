@@ -28,9 +28,7 @@ exec('git diff --cached --name-only package.json', function(
   console.log('git diff stdout: ', stdout)
   if (!stdout) {
     console.log('package.json 无修改')
-    core.setOutput("need_install", false);
     return false
   }
-  core.setOutput("need_install", true);
   return true
 })
