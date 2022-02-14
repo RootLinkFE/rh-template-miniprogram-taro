@@ -8,9 +8,6 @@ on:
     branches:
       - master
 
-env:
-  NEED_INSTALL: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,14 +36,15 @@ jobs:
       #     echo "${{ github.event.inputs.buildBranch }}"
 
       - name: Need Install Project Dependencies?
-        run: ${{ NEED_INSTALL }} = node ./scripts/ci/compare-pk.js
+        id: need_install
+        run: node ./scripts/ci/compare-pk.js
 
-      - name: Install Project Dependencies
-        if: ${{ NEED_INSTALL }} == true
+      - name: Install
+        if: ${{ steps.need_install.outputs }} == true
         run: npx yarn
 
-      - name: Jump Install Project Dependencies
-        if: ${{ NEED_INSTALL }} == false
+      - name: Jump
+        if: ${{ steps.need_install.outputs }} == false
         run: node console.log('跳过依赖安装')
 
       - name: Build
