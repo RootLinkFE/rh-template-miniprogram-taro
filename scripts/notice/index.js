@@ -35,7 +35,7 @@ function noticeMsg() {
         msgtype: 'markdown',
         markdown: {
           content: `
-          > 项目名称：<font color="blue">机手小程序2</font>
+          > 项目名称：<font color="blue">Taro小程序</font>
           > 分支：<font color="blue">${branchName}</font>
           > 发布人：本地开发者
           > 发布时间：${formatDate(newDate)}

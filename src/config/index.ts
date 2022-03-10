@@ -5,7 +5,7 @@ import { get, merge } from '@/utils/mylodash'
 export const noConsole = false
 
 export const defaultConfig = {
-  name: '树根根联',
+  name: 'Taro小程序',
   version: 1,
   viewConfig: {},
   loginMode: 'wechat', // 'wechat' | 'vcode' | 'password'; 对应不同登录方式
