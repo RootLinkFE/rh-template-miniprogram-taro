@@ -1,5 +1,5 @@
-import RHMButton from '@/components/RHMButton'
-import RHMMobileVerifyCode from '@/components/RHMMobileVerifyCode/index'
+import RhButton from '@/components/RhButton'
+import RhMobileVerifyCode from '@/components/RhMobileVerifyCode/index'
 import { useVisible } from '@/hooks/handle'
 import { isNotEmpty } from '@/utils/common'
 import { get } from '@/utils/mylodash'
@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux'
 
 VCodeLoginForm.propTypes = {
   onlyWxMobile: PropTypes.bool, // 是否显示手机验证码表单
-  btnProps: PropTypes.object // 提交按钮属性
+  btnProps: PropTypes.object, // 提交按钮属性
 }
 
 export default function VCodeLoginForm(props) {
@@ -28,7 +28,7 @@ export default function VCodeLoginForm(props) {
     NavigationService.dispatch('loginModel/login', {
       loginMethod: 'mobile_vcode',
       mobile,
-      verifyCode
+      verifyCode,
     })
   }
 
@@ -55,7 +55,7 @@ export default function VCodeLoginForm(props) {
         await NavigationService.dispatch('loginModel/login', {
           loginMethod: 'wechat_mobile',
           encryptedData,
-          iv
+          iv,
           // code
         })
       } catch (error) {
@@ -69,7 +69,7 @@ export default function VCodeLoginForm(props) {
   if (visible) {
     return (
       <>
-        <RHMButton
+        <RhButton
           openType='getPhoneNumber'
           className={`${
             btnProps.disabled ? '' : 'login-button-active'
@@ -78,12 +78,12 @@ export default function VCodeLoginForm(props) {
           {...btnProps}
         >
           <Text style={{ color: '#fff' }}>微信用户一键登录</Text>
-        </RHMButton>
+        </RhButton>
         {onlyWxMobile && (
           <View className='login-form-fields-switch'>
-            <RHMButton mode='ghost' onClick={toggle}>
+            <RhButton mode='ghost' onClick={toggle}>
               其他手机号码
-            </RHMButton>
+            </RhButton>
           </View>
         )}
       </>
@@ -93,7 +93,7 @@ export default function VCodeLoginForm(props) {
   return (
     <>
       <View className='login-form-fields'>
-        <RHMMobileVerifyCode
+        <RhMobileVerifyCode
           name='mobile'
           className='login-form-fields-input'
           placeholder='请输入手机号'
@@ -111,14 +111,14 @@ export default function VCodeLoginForm(props) {
         ></Field>
       </View>
       <View className='login-form-fields-switch'>
-        <RHMButton mode='ghost' onClick={toggle}>
+        <RhButton mode='ghost' onClick={toggle}>
           使用微信绑定手机号
-        </RHMButton>
+        </RhButton>
       </View>
 
-      <RHMButton className='login-button' onClick={handleSubmit}>
+      <RhButton className='login-button' onClick={handleSubmit}>
         登录
-      </RHMButton>
+      </RhButton>
     </>
   )
 }

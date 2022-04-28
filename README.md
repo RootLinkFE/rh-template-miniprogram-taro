@@ -2,19 +2,18 @@
 
 ### 技术栈
 
-Taro + Taro-UI + DVA
+Taro + taroify UI + mobx4
 
-### Todo
+### TODO
 
 - 页面、组件
-- [x] 登录组件（微信登录、表单登录、验证码登录）
-- [x] 按钮组件（封装微信和通用按钮相关功能）
-- [x] 自定义底部 tabbar（体验开关 config/index.js NEED_CUSTOM_TABBAR 变量）
-
+  - [x] 登录组件（微信登录、表单登录、验证码登录）
+  - [x] 按钮组件（封装微信和通用按钮相关功能）
+  - [x] 自定义底部 tabbar（体验开关 config/index.js NEED_CUSTOM_TABBAR 变量）
 - 服务
-- [x] 二次封装 Taro 跳转功能
-- [x] 网络请求
-- [x] 腾讯地图服务
+  - [x] 二次封装 Taro 跳转功能
+  - [x] 网络请求
+  - [x] 腾讯地图服务
 
 ### Useage
 

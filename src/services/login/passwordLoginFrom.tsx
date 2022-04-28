@@ -1,9 +1,8 @@
-import RHMButton from '@/components/RHMButton'
+import RhButton from '@/components/RhButton'
 import NavigationService from '@/utils/navigation'
 import { Cell, Field } from '@taroify/core'
 import { View } from '@tarojs/components'
 import { useState } from 'react'
-
 
 export default function PasswordForm() {
   const [login, setLogin] = useState()
@@ -13,7 +12,7 @@ export default function PasswordForm() {
     NavigationService.dispatch('loginModel/login', {
       loginMethod: 'account_password',
       login,
-      password
+      password,
     })
   }
 
@@ -36,9 +35,9 @@ export default function PasswordForm() {
           />
         </Cell.Group>
       </View>
-      <RHMButton className='login-button' onClick={handleSubmit}>
+      <RhButton className='login-button' onClick={handleSubmit}>
         登录
-      </RHMButton>
+      </RhButton>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import RHMButton from '@/components/RHMButton'
+import RhButton from '@/components/RhButton'
 import NavigationService from '@/utils/navigation'
 
 export default function WechatLoginForm(props) {
@@ -7,12 +7,12 @@ export default function WechatLoginForm(props) {
   const handleSubmit = () => {
     let loginMethod = 'wechat_mobile'
     NavigationService.dispatch('loginModel/login', {
-      loginMethod
+      loginMethod,
     })
   }
   return (
-    <RHMButton className='login-button' onClick={handleSubmit} {...btnProps}>
+    <RhButton className='login-button' onClick={handleSubmit} {...btnProps}>
       微信用户一键登录
-    </RHMButton>
+    </RhButton>
   )
 }

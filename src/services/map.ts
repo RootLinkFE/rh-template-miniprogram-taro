@@ -3,7 +3,7 @@
  */
 
 import Taro from '@tarojs/taro'
-import { regionJSON } from '../components/RHMForm/components/picker/addrData'
+import { regionJSON } from '../components/RhForm/components/picker/addrData'
 import GlobalToast from '../utils/toast'
 
 const QQMapWX = require('@/assets/libs/qqmap-wx-jssdk.min.js')
@@ -39,14 +39,14 @@ function getUserLocation(): Promise<void> {
       const setting = await Taro.getSetting()
       if (!setting.authSetting['scope.userLocation']) {
         Taro.authorize({
-          scope: 'scope.userLocation'
+          scope: 'scope.userLocation',
         })
           .then(() => resolve())
           .catch(() => {
             Taro.showToast({
               title: '您未允许授权获取地理位置信息，请前往设置',
               icon: 'none',
-              duration: 3000
+              duration: 3000,
             })
             reject()
           })
@@ -82,7 +82,7 @@ export async function getAddr(params?: any): Promise<AddrInfo> {
     sdk?.reverseGeocoder({
       location: {
         latitude,
-        longitude
+        longitude,
       },
       success: ({ result }) => {
         const provinceName = result.address_component.province
@@ -94,11 +94,11 @@ export async function getAddr(params?: any): Promise<AddrInfo> {
           provinceName: provinceName,
           provinceCode: regionJSON.filter(
             (province) => province.name === provinceName
-          )[0]?.['code']
+          )[0]?.['code'],
         }
         resolve(data)
       },
-      fail: reject
+      fail: reject,
     })
   })
 }

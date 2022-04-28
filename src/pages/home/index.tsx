@@ -1,9 +1,9 @@
 import { View } from '@tarojs/components'
 import React from 'react'
 import './index.less'
-import RHMButton from '@/components/RHMButton'
+import RhButton from '@/components/RhButton'
 import NavigationService from '@/utils/navigation'
-import RHMTabbar from '@/components/RHMTabbar'
+import RhTabbar from '@/components/RhTabbar'
 import { EventProxy, EventProxyType } from '@/utils/eventProxy'
 
 declare const NEED_CUSTOM_TABBAR: boolean
@@ -12,7 +12,7 @@ class Home extends React.Component<any, { currentRoute: string }> {
   constructor(props) {
     super(props)
     this.state = {
-      currentRoute: '/pages/home/index'
+      currentRoute: '/pages/home/index',
     }
   }
 
@@ -24,9 +24,9 @@ class Home extends React.Component<any, { currentRoute: string }> {
     return (
       <View className={NEED_CUSTOM_TABBAR ? 'tarbar-page' : ''}>
         <View className='home-page'>
-          <RHMButton onClick={this.handleJump}>跳转demo页面</RHMButton>
+          <RhButton onClick={this.handleJump}>跳转demo页面</RhButton>
           {NEED_CUSTOM_TABBAR && (
-            <RHMTabbar route={this.state.currentRoute}></RHMTabbar>
+            <RhTabbar route={this.state.currentRoute}></RhTabbar>
           )}
         </View>
       </View>

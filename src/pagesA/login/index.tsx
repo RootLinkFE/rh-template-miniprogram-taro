@@ -15,7 +15,7 @@ export default function LoginPage() {
   // 微信静默登录
   function autoLogin() {
     NavigationService.dispatch('loginModel/login', {
-      loginMethod: 'wechat_app'
+      loginMethod: 'wechat_app',
     })
   }
 
@@ -38,13 +38,14 @@ export default function LoginPage() {
             style='transform: scale(0.7); position: relative; top: -1px'
             color='#D92500'
             checked={checked}
+            value={''}
             onClick={() => setChecked(!checked)}
           ></Checkbox>
-          <View>
+          <View className='flex' style='line-height:22px'>
             登录即代表同意《小嘿机租用户
-            <View className='text-bold' onClick={() => handleJump('protocol')}>
+            <Text className='text-bold' onClick={() => handleJump('protocol')}>
               服务协议
-            </View>
+            </Text>
             {/* 及
             <View className='text-bold' onClick={() => handleJump('policy')}>
               隐私政策

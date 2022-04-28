@@ -1,25 +1,15 @@
 import React from 'react'
-import { Provider } from 'react-redux'
+import { Provider } from 'mobx-react'
 import './app.less'
-import Config from './config/index'
-import models from './models'
+import store from './store'
 import { isWeapp } from './utils'
-import dva from './utils/dva'
 import SystemPower from './utils/system'
 import Taro from '@tarojs/taro'
+import { PageProps } from '../global'
 
 declare const NEED_CUSTOM_TABBAR: boolean
 
-const dvaApp = dva.createApp({
-  initialState: {},
-  models: models
-})
-const store = dvaApp.getStore()
-
-// do initial
-Config.start && Config.start({}, dvaApp)
-
-export default class App extends React.Component {
+export default class App extends React.Component<PageProps> {
   customNode: {
     iconName: string // 需要根据export的名字动态引入图片，import * as ImageService from '@/services/dynamicImage'
     pagePath: string
@@ -29,8 +19,8 @@ export default class App extends React.Component {
     style?: Partial<CSSStyleDeclaration>
   }
 
-  constructor() {
-    super({}, {})
+  constructor(props) {
+    super(props)
     if (NEED_CUSTOM_TABBAR) {
       Taro.hideTabBar()
       this.customNode = {
@@ -42,8 +32,8 @@ export default class App extends React.Component {
           top: '50%',
           left: '50%',
           marginLeft: '-50rpx',
-          marginTop: '-18rpx'
-        }
+          marginTop: '-18rpx',
+        },
       }
     }
   }
