@@ -6,7 +6,7 @@ import {
   RES_SUCCESS_DEFAULT_CODE,
   RES_UNAUTHORIZED_CODE,
   TOKEN_KEY,
-  BASE_URL
+  BASE_URL,
 } from '@/config/const'
 import NavigationService from '@/utils/navigation'
 import Taro from '@tarojs/taro'
@@ -47,7 +47,7 @@ const ignoreInterceptor = (resp) => {
 }
 
 export const Request = async (
-  options = { method: 'GET', data: {}, uri: '' }
+  options: any = { method: 'GET', data: {}, uri: '' }
 ) => {
   GlobalToast.show({ text: '正在加载...', icon: 'loading' })
   if (!true) {
@@ -62,13 +62,13 @@ export const Request = async (
   return Taro.request({
     url: BASE_URL + options.uri,
     data: {
-      ...options.data
+      ...options.data,
     },
     header: options.header || {
       'Content-Type': 'application/json',
-      Authorization
+      Authorization,
     },
-    method: options.method.toUpperCase()
+    method: options.method.toUpperCase() as any,
   })
     .then(async (response) => {
       const res = response?.data
@@ -78,7 +78,7 @@ export const Request = async (
       let error = {
         code,
         res,
-        text: tips
+        text: tips,
       }
 
       if (!code) {
@@ -123,10 +123,20 @@ export const Request = async (
     })
 }
 
-export const Get = (uri, data, ...params) => {
-  return Request({ method: 'GET', data, uri, ...params })
+export const Get = (uri, data, options = {}) => {
+  return Request({
+    method: 'GET',
+    data,
+    uri,
+    ...options,
+  })
 }
 
-export const Post = (uri, data, ...params) => {
-  return Request({ method: 'POST', data, uri, ...params })
+export const Post = (uri, data, options = {}) => {
+  return Request({
+    method: 'POST',
+    data,
+    uri,
+    ...options,
+  })
 }
