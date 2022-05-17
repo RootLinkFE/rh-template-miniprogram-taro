@@ -1,0 +1,29 @@
+.card {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 24px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  .right-text {
+    color: var(--grey);
+  }
+}
+
+.card-container {
+  display: flex;
+  box-sizing: border-box;
+
+  &.flex-reverse {
+    flex-direction: row-reverse;
+  }
+}
+.card-shadow {
+  &:extend(.card);
+  box-shadow: 0 4rpx 20rpx 0 rgba(212, 217, 223, 0.5);
+  border-radius: 3 * @border-radius-base;
+}

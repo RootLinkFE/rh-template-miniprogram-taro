@@ -10,4 +10,58 @@ page {
 
 .home-page {
   &:extend(.page);
+  padding: 24px;
+}
+.banner-swiper {
+  border-radius: 18px;
+  .taroify-swiper-item {
+    color: #fff;
+    font-size: 20px * 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    image {
+      height: 280px;
+      width: 100%;
+    }
+  }
+}
+.menu {
+  background-color: #fff;
+  margin-top: 32px;
+  border-radius: 3 * @border-radius-base;
+  padding: 24px;
+  .icon-img {
+    width: 90rpx;
+    height: 90rpx;
+  }
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 30rpx;
+  }
+  .menu-title {
+    margin-top: 8px;
+    color: @text-color-light;
+    font-size: 28px;
+  }
+}
+
+.financial-content {
+  margin-top: 40rpx;
+  padding-bottom: 40rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .card-item {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-item > .text-df {
+    margin-bottom: 10rpx;
+  }
 }

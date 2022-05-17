@@ -1,11 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { getExtMode, isNotEmpty, debounce } from '@/utils/common'
-import Taro from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import { Button } from '@taroify/core'
+import { debounce, getExtMode, isNotEmpty } from '@/utils/common'
 import NavigationService from '@/utils/navigation'
-
+import { Button } from '@taroify/core'
+import { View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import PropTypes from 'prop-types'
+import React from 'react'
 import './index.less'
 
 // form中组件封装后，button 不会触发form的handle方法问题
